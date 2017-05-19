@@ -6,6 +6,12 @@ GTEST_DIR=github__google__googletest.git/googletest/
 GMOCK_DIR=github__google__googletest.git/googlemock/
 EV3DEV_DIR=github__ddemidov__ev3dev-lang-cpp.git/
 
+DEBUGFLAG="-g"
+OPTFLAG="-O1"
+CXXSTD="-std=c++11"
+CXXFLAGS="${CXXSTD} ${OPTFLAG} ${DEBUGFLAG}"
+
+
 g++ -o ${NAME} -pthread ${NAME}.cpp\
   -isystem ${EV3DEV_DIR}\
   -isystem ${GTEST_DIR}/include\
@@ -14,6 +20,5 @@ g++ -o ${NAME} -pthread ${NAME}.cpp\
   -I ${GMOCK_DIR}/\
   ${GTEST_DIR}/src/gtest-all.cc\
   ${GMOCK_DIR}/src/gmock-all.cc\
-  -g -O1\
-  -std=c++11
+  ${CXXFLAGS}
 
