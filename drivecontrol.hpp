@@ -20,6 +20,7 @@ public:
   void drive(int speed, int time=0);
   void turn(int direction);
   void stop();
+  void wait();
 
 protected:
   ev3::large_motor    * _motor_left {nullptr};

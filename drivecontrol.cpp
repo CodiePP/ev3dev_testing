@@ -5,6 +5,14 @@
 #include <iostream>
 
 
+void drivecontrol::wait()
+{
+    while (_motor_left->state().count("running")
+        || _motor_right->state().count("running")) {
+      std::this_thread::sleep_for(std::chrono::milliseconds(10));
+    }
+}
+
 void drivecontrol::drive(int speed, int time)
 {
   _motor_left->set_speed_sp(speed);
@@ -17,10 +25,7 @@ void drivecontrol::drive(int speed, int time)
     _motor_left->set_time_sp(time).run_timed();
     _motor_right->set_time_sp(time).run_timed();
 
-    while (_motor_left->state().count("running")
-        || _motor_right->state().count("running")) {
-      std::this_thread::sleep_for(std::chrono::milliseconds(10));
-    }
+    wait();
 
     _state = state_idle;
   }
@@ -42,13 +47,10 @@ void drivecontrol::turn(int direction)
 
   _state = state_turning;
 
-  _motor_left->set_position_sp( direction).set_speed_sp(500).run_to_rel_pos();
-  _motor_right->set_position_sp(-direction).set_speed_sp(500).run_to_rel_pos();
+  _motor_left->set_position_sp( direction).set_speed_sp(300).run_to_rel_pos();
+  _motor_right->set_position_sp(-direction).set_speed_sp(300).run_to_rel_pos();
 
-  while (_motor_left->state().count("running")
-      || _motor_right->state().count("running")) {
-    std::this_thread::sleep_for(std::chrono::milliseconds(10));
-  }
+  wait();
 
   _state = state_idle;
 }
