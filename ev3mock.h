@@ -1,4 +1,6 @@
 
+#pragma once
+
 #include <gmock/gmock.h>
 #include <ev3dev.h>
 
