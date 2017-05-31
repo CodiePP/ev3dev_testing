@@ -87,6 +87,10 @@ namespace ev3mock {
     public:
       color_sensor(address_type a) : sensor(a) {}
 
+      //static constexpr const char* mode_col_reflect = ev3dev::color_sensor::mode_col_reflect;
+      //static constexpr const char* mode_col_ambient = ev3dev::color_sensor::mode_col_ambient;
+      //static constexpr const char* mode_col_color = ev3dev::color_sensor::mode_col_color;
+
       int reflected_light_intensity(bool do_set_mode = true) {
         if (do_set_mode) set_mode(ev3dev::color_sensor::mode_col_reflect);
         return value(0);

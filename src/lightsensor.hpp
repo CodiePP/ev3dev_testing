@@ -16,11 +16,11 @@ namespace ev3 = ev3dev;
 #include <thread>
 
 
-class colorsensor : public sensorcontrol
+class lightsensor : public sensorcontrol
 {
 public:
-  colorsensor(ev3::address_type a);
-  virtual ~colorsensor();
+  lightsensor(ev3::address_type a);
+  virtual ~lightsensor();
 
   virtual void run() override;
   virtual void stop() override;

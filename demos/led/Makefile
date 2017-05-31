@@ -1,34 +1,30 @@
 ## the name of the output file
-NAME=test3
+NAME=led_demo
 
 SRC_DIR=../../src
 OBJ_DIR=obj
-GTEST_DIR=../../github__google__googletest.git/googletest/
-GMOCK_DIR=../../github__google__googletest.git/googlemock/
 EV3DEV_DIR=../../github__ddemidov__ev3dev-lang-cpp.git/
 
-DEBUGFLAG = -g -DMOCK_TEST
+CC  = arm-linux-gnueabi-gcc-4.9
+CXX = arm-linux-gnueabi-g++-4.9
+
+DEBUGFLAG = -g -UMOCK_TEST
 OPTFLAG = -O1 -pthread
 CXXSTD = -std=c++11
-INCLUDES = -I$(SRC_DIR) -isystem ${EV3DEV_DIR}\
-           -isystem ${GTEST_DIR}/include -isystem ${GMOCK_DIR}/include\
-           -I ${GTEST_DIR}/ -I ${GMOCK_DIR}/
+INCLUDES = -I$(SRC_DIR) -isystem $(EV3DEV_DIR)
 CXXFLAGS = $(CXXSTD) $(OPTFLAG) $(DEBUGFLAG) $(INCLUDES)
 LDFLAGS =
 
 ## source files
-src = test.cpp
+src = led_demo.cpp
 
 ## include these source files
-libsrc = $(SRC_DIR)/colorsensor.cpp $(EV3DEV_DIR)/ev3dev.cpp
-testsrc = $(GTEST_DIR)/src/gtest-all.cc $(GMOCK_DIR)/src/gmock-all.cc
-
+libsrc = $(EV3DEV_DIR)/ev3dev.cpp
 
 
 ## nothing to change below this line
 objs = $(addprefix $(OBJ_DIR)/, $(notdir $(src:%.cpp=%.o)))\
-			 $(addprefix $(OBJ_DIR)/, $(notdir $(libsrc:%.cpp=%.o)))\
-			 $(addprefix $(OBJ_DIR)/, $(notdir $(testsrc:%.cc=%.o)))
+			 $(addprefix $(OBJ_DIR)/, $(notdir $(libsrc:%.cpp=%.o)))
 
 
 $(NAME): make_obj_dir $(objs)
@@ -37,12 +33,6 @@ $(NAME): make_obj_dir $(objs)
 
 $(OBJ_DIR)/%.o : %.c
 	$(CC) -c $(CFLAGS) $(CPPFLAGS) $< -o $@
-
-$(OBJ_DIR)/%.o : $(GTEST_DIR)/src/%.cc
-	$(CXX) -c $(CXXFLAGS) $(CPPFLAGS) $< -o $@
-
-$(OBJ_DIR)/%.o : $(GMOCK_DIR)/src/%.cc
-	$(CXX) -c $(CXXFLAGS) $(CPPFLAGS) $< -o $@
 
 $(OBJ_DIR)/%.o : $(SRC_DIR)/%.cpp
 	$(CXX) -c $(CXXFLAGS) $(CPPFLAGS) $< -o $@

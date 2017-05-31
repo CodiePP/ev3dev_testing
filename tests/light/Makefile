@@ -1,5 +1,5 @@
 ## the name of the output file
-NAME=test3
+NAME=test_light
 
 SRC_DIR=../../src
 OBJ_DIR=obj
@@ -20,7 +20,7 @@ LDFLAGS =
 src = test.cpp
 
 ## include these source files
-libsrc = $(SRC_DIR)/colorsensor.cpp $(EV3DEV_DIR)/ev3dev.cpp
+libsrc = $(SRC_DIR)/lightsensor.cpp $(EV3DEV_DIR)/ev3dev.cpp
 testsrc = $(GTEST_DIR)/src/gtest-all.cc $(GMOCK_DIR)/src/gmock-all.cc
 
 
