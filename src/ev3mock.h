@@ -264,4 +264,13 @@ namespace ev3mock {
       medium_motor(address_type a) : motor(a, "lego-ev3-m-motor") {}
   };
 
+  class button {
+    public:
+      button(int bit) : _bit(bit) {};
+      MOCK_CONST_METHOD0(pressed, bool());
+      enum { up=1,down,left,right,enter };
+    private:
+      int _bit;
+  };
+
 } // namespace ev3mock
